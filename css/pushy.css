@@ -21,6 +21,10 @@
     -webkit-overflow-scrolling: touch; /* enables momentum scrolling in iOS overflow elements */
 }
 
+.pushy-wide {
+    width: 500px;
+}
+
 .pushy a{
     display: block;
     color: #b3b3b1;
@@ -43,6 +47,15 @@
     -ms-transform: translate3d(-200px,0,0);
     -o-transform: translate3d(-200px,0,0);
     transform: translate3d(-200px,0,0);
+}
+
+.pushy-right{
+    right: 0;
+    -webkit-transform: translate3d(500px,0,0);
+    -moz-transform: translate3d(500px,0,0);
+    -ms-transform: translate3d(500px,0,0);
+    -o-transform: translate3d(500px,0,0);
+    transform: translate3d(500px,0,0);
 }
 
 .pushy-open{
