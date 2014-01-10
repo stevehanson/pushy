@@ -26,11 +26,19 @@ Feel free to [let me know](http://www.twitter.com/cmyee) if you use Pushy in one
 
 2. Add the stylesheet (pushy.css) in your head and the JS (pushy.min.js) file in your footer.
 
-3. Insert the following markup into your body.
+**Configuration without Javascript**
 
 ```html
 <!-- Pushy Menu -->
-<nav class="pushy pushy-left">
+<nav class="pushy pushy-left pushy-auto">
+    <ul>
+        <li><a href="#">Item 1</a></li>
+        <li><a href="#">Item 2</a></li>
+    </ul>
+</nav>
+
+<!-- Right Pushy Menu -->
+<nav class="pushy pushy-right pushy-auto" data-pushy-width="500px">
     <ul>
         <li><a href="#">Item 1</a></li>
         <li><a href="#">Item 2</a></li>
@@ -43,9 +51,50 @@ Feel free to [let me know](http://www.twitter.com/cmyee) if you use Pushy in one
 <!-- Your Content -->
 <div id="container">
     <!-- Menu Button -->
-    <div class="menu-btn">&#9776; Menu</div>
+    <div class="menu-btn" data-for="pushyLeft">&#9776; Menu</div>
+    <div class="menu-btn" data-for="pushyRight">&#9776; Right Menu</div>
 </div>
 ```
+
+**Configuration with Javascript**
+
+```html
+<!-- Pushy Menu -->
+<nav class="pushy pushy-left">
+    <ul>
+        <li><a href="#">Item 1</a></li>
+        <li><a href="#">Item 2</a></li>
+    </ul>
+</nav>
+
+<!-- Right Pushy Menu -->
+<nav class="pushy pushy-right">
+    <ul>
+        <li><a href="#">Item 1</a></li>
+        <li><a href="#">Item 2</a></li>
+    </ul>
+</nav>
+
+<!-- Site Overlay -->
+<div class="site-overlay"></div>
+
+<!-- Your Content -->
+<div id="container">
+    <!-- Menu Button -->
+    <div class="menu-btn" data-for="pushyLeft">&#9776; Menu</div>
+    <div class="menu-btn" data-for="pushyRight">&#9776; Right Menu</div>
+</div>
+
+<script>
+    $('#pushyLeft').pushy();
+    $('#pushyRight').pushy({
+        position: 'right',
+        width: '500px'
+    });
+
+</script>
+```
+
 
 ##Modernizr
 

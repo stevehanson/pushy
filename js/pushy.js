@@ -1,7 +1,8 @@
 /*
- * jQuery Pushy plugin
- * Original author:
+ * jQuery Pushy plugin 0.9.2 - https://github.com/stevehanson/pushy
+ * Forked from: https://github.com/christophery/pushy
  * Modified By: Steve Hanson (@stephenhanson)
+ *
  */
 ;(function ($, window, document, undefined) {
     
