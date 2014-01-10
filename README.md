@@ -30,7 +30,7 @@ Feel free to [let me know](http://www.twitter.com/cmyee) if you use Pushy in one
 
 ```html
 <!-- Pushy Menu -->
-<nav class="pushy pushy-left pushy-auto">
+<nav id="pushyLeft" class="pushy pushy-left pushy-auto">
     <ul>
         <li><a href="#">Item 1</a></li>
         <li><a href="#">Item 2</a></li>
@@ -38,7 +38,7 @@ Feel free to [let me know](http://www.twitter.com/cmyee) if you use Pushy in one
 </nav>
 
 <!-- Right Pushy Menu -->
-<nav class="pushy pushy-right pushy-auto" data-pushy-width="500px">
+<nav id="pushyRight" class="pushy pushy-right pushy-auto" data-pushy-width="500px">
     <ul>
         <li><a href="#">Item 1</a></li>
         <li><a href="#">Item 2</a></li>
@@ -60,7 +60,7 @@ Feel free to [let me know](http://www.twitter.com/cmyee) if you use Pushy in one
 
 ```html
 <!-- Pushy Menu -->
-<nav class="pushy pushy-left">
+<nav id="pushyLeft" class="pushy pushy-left">
     <ul>
         <li><a href="#">Item 1</a></li>
         <li><a href="#">Item 2</a></li>
@@ -68,7 +68,7 @@ Feel free to [let me know](http://www.twitter.com/cmyee) if you use Pushy in one
 </nav>
 
 <!-- Right Pushy Menu -->
-<nav class="pushy pushy-right">
+<nav id="pushyRight" class="pushy pushy-right">
     <ul>
         <li><a href="#">Item 1</a></li>
         <li><a href="#">Item 2</a></li>
