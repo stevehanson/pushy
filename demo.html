@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="css/pushy.css">
         
         <!-- jQuery -->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
         <!-- Modernizr -->
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
@@ -33,8 +33,25 @@
             </ul>
         </nav>
 
+        <nav id="pushyLeft2" class="pushy pushy-left">
+            <h3>This</h3>
+            <h4>is a</h4>
+            <h3>Pushy</h4>
+        </nav>
+
         <!-- Pushy Menu -->
-        <nav id="pushyRight" class="pushy pushy-wide pushy-right pushy-auto" data-pushy-width="500px">
+        <nav id="pushyRight" class="pushy pushy-wide pushy-right pushy-auto">
+            <ul>
+                <li><a href="#">Item 1</a></li>
+                <li><a href="#">Item 2</a></li>
+                <li><a href="#">Item 3</a></li>
+                <li><a href="#">Item 4</a></li>
+                <li><a href="#">Item 5</a></li>
+                <li><a href="#">Item 6</a></li>
+            </ul>
+        </nav>
+
+        <nav id="pushyRightWide" class="pushy pushy-right pushy-auto" data-pushy-width="500px">
             <ul>
                 <li><a href="#">Item 1</a></li>
                 <li><a href="#">Item 2</a></li>
@@ -51,8 +68,12 @@
         <!-- Your Content -->
         <div id="container">
             <!-- Menu Button -->
-            <div class="menu-btn" data-for="pushyLeft">&#9776; Menu</div>
-            <div class="menu-btn" data-for="pushyRight">&#9776; Right Menu</div>
+            <div class="menu-btn" data-pushy-for="pushyLeft">&#9776; Menu</div>
+            <div class="menu-btn" data-pushy-for="pushyRight">&#9776; Right Menu</div>
+            <div class="menu-btn" data-pushy-for="pushyRightWide">&#9776; Right Wide</div>
+            <div class="menu-btn" data-pushy-for="pushyLeft2">&#9776; Left 2</div>
+
+            <h2 id="messageContainer"> </h2>
 
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pharetra neque a diam cursus pulvinar. Suspendisse faucibus mi id accumsan lobortis. Pellentesque consectetur varius turpis, nec viverra justo pellentesque sit amet. Vestibulum convallis leo non purus vehicula, non faucibus libero rhoncus. Morbi aliquam tincidunt facilisis. Aenean sodales nulla ac semper consectetur. Vivamus commodo massa convallis justo posuere vestibulum. Aenean congue non mauris ac auctor. Ut suscipit et eros nec suscipit. Nulla congue, mauris nec bibendum sagittis, urna orci tincidunt massa, in vulputate velit nulla vitae nunc. Etiam urna justo, imperdiet nec orci sollicitudin, tempus feugiat erat. Vivamus id lectus nulla. Vestibulum sagittis cursus metus vel ultricies. Suspendisse viverra interdum metus eu placerat. Quisque tristique velit nisi, scelerisque consectetur tortor vehicula ut. Donec id fermentum mi, nec venenatis felis.</p>
 
@@ -64,6 +85,19 @@
 
         <!-- Pushy JS -->
         <script src="js/pushy.js"></script>
+
+        <script>
+            $('#pushyLeft2').pushy({
+                position: 'left',
+                width: '323px',
+                onOpen: function() {
+                    $('#messageContainer').text('Pushy has open/close callbacks');
+                },
+                onClose: function() {
+                    $('#messageContainer').text('');
+                }
+            });
+        </script>
 
     </body>
 </html>

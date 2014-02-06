@@ -12,11 +12,23 @@
         defaults = {
             propertyName: 'value',
             position: 'left',
+            overlay: true, // display overlay when active
+            moveContainer: true, // move the container over when menu open
             pushyClass: "pushy-open", //menu position & menu open class
             pushyActiveClass: "pushy-active", //css class to toggle site overlay
             containerClass: "container-push", //container open class
-            pushClass: "push-push" //css class to add pushy capability
         };
+        
+    
+    function translateX($el, amt) {
+        $el.css({
+            '-webkit-transform': 'translateX('+amt+')',
+            '-moz-transform': 'translateX('+amt+')',
+            '-ms-transform': 'translateX('+amt+')',
+            '-o-transform': 'translateX('+amt+')',
+            'transform': 'translateX('+amt+')'
+        });
+    }
 
     // The actual plugin constructor
     function Plugin( element, options ) {
@@ -27,19 +39,17 @@
         
         this.menuWidth = (this.pushy.attr('data-pushy-width')) ? this.pushy.attr('data-pushy-width') : this.options.width;
         this.menuWidth = (this.menuWidth) ? this.menuWidth : this.pushy.width() + 'px';
+        this.pushy.css('width', this.menuWidth);
         
         this.position = (this.pushy.hasClass('pushy-left')) ? 'left' : 'right';
         this.position =  (this.position) ? this.position : this.options.position;
 
         this._name = pluginName;
         this._defaults = defaults;
-        this.toggleBtn = $('.menu-btn[data-for="'+this.id+'"]');
+        this.toggleBtn = $('[data-pushy-for="'+this.id+'"]');
         this.container = $('#container'); //container css class
-        this.push = $('.push'); //css class to add pushy capability
         this.siteOverlay = $('.site-overlay'); //site overlay
-        
         this.menuSpeed = 200; //jQuery fallback menu speed
-        //this.menuWidth = this.pushy.width() + "px"; //jQuery fallback menu width
 
         this.init();
     }
@@ -49,13 +59,18 @@
         var t = this;
         var pushy = t.pushy;
 
-        console.log(pushy);
+        if(Modernizr.csstransforms){
 
-        if(Modernizr.csstransforms3d){
-
+            // initially hide the pushy
+            if(this.position == 'left'){
+                translateX(this.pushy, '-'+this.menuWidth);
+            } else { // right
+                translateX(this.pushy, this.menuWidth);
+            }
+            this.pushy.show(); // is initially display:none so no blip before above js
+            
             //toggle menu
             t.toggleBtn.click(function() {
-                log('clicked ' + t.id);
                 t.togglePushy();
             });
 
@@ -65,18 +80,25 @@
                     t.togglePushy();
             });
 
-        } else{
-
-            //jQuery fallback
-            pushy.css({left: "-" + menuWidth}); //hide menu by default
+        } else{ //jQuery fallback
+            
+            if(t.position == 'left') {
+                pushy.css({left: "-" + t.menuWidth}); //hide menu by default  
+                pushy.show(); // is initially display:none so no blip before above js
+            } else {
+                pushy.css({right: "-" + t.menuWidth}); //hide menu by default    
+            }
+            
+            pushy.show(); // is initially display:none so no blip before above js
+            
             t.container.css({"overflow-x": "hidden"}); //fixes IE scrollbar issue
 
             //toggle menu
             t.toggleBtn.click(function() {
                 if (!t.isOpen(pushy)) {
-                    openPushyFallback();
+                    t.openPushyFallback();
                 } else {
-                    closePushyFallback();
+                    t.closePushyFallback();
                 }
             });
 
@@ -91,16 +113,47 @@
             });
         }
 
-        
-        
     };
 
     Plugin.prototype.togglePushy = function(){
+        if(!this.isOpen()) {
+            if(this.options.onOpen) {
+                this.options.onOpen();
+            }
+        } else { // closing
+            if(this.options.onClose) {
+                this.options.onClose();
+            }
+        }
+        
+        if(this.isOpen()) { // close pushy
+            var pushyTranslate = (this.position=='left') ? '-'+this.menuWidth : this.menuWidth;
+            translateX(this.pushy, pushyTranslate);
+            translateX(this.container, '0');
+            
+            if(this.options.overlay) {
+                this.siteOverlay.fadeOut(100);
+            }
+            
+        } else { // closed, open it
+            
+            translateX(this.pushy, 0); // open pushy
+            if(this.options.moveContainer) {
+                var containerTranslate = (this.position=='left') ? this.menuWidth : '-'+this.menuWidth;
+                translateX(this.container, containerTranslate);
+            }
+            
+            if(this.options.overlay) {
+                this.siteOverlay.fadeIn(100);
+            }
+            
+        }
+            
+        
         this.pushy.toggleClass(this.options.pushyClass);
-        if(this.position === 'left') {
-            $('body').toggleClass(this.options.pushyActiveClass); //toggle site overlay
-            this.container.toggleClass(this.options.containerClass);
-            this.push.toggleClass(this.options.pushClass); //css class to add pushy capability
+        
+        if(this.options.overlay) {
+            $('body').toggleClass(this.options.pushyActiveClass); // toggle site overlay over entire page
         }
     };
 
@@ -110,37 +163,61 @@
     };
 
     Plugin.prototype.openPushyFallback = function(){
-        $('body').addClass(this.pushyActiveClass);
-        this.pushy.animate({left: "0px"}, this.menuSpeed);
         this.pushy.addClass(this.options.pushyClass);
-        this.container.animate({left: this.menuWidth}, this.menuSpeed);
-        this.push.animate({left: this.menuWidth}, this.menuSpeed); //css class to add pushy capability
+        if(this.options.onOpen) {
+            this.options.onOpen();
+        }
+        if(this.position == 'left') {
+            this.pushy.animate({left: "0px"}, this.menuSpeed); // move pushy
+        } else {
+            this.pushy.animate({right: "0"}, this.menuSpeed);
+        }
+        if(this.options.overlay) {
+            this.siteOverlay.fadeIn(100); // move overlay
+        }
+        if(this.options.moveContainer) {
+            this.container.animate({left: this.menuWidth}, this.menuSpeed); // move container
+        }
     };
 
     Plugin.prototype.closePushyFallback = function(){
-        $('body').removeClass(this.options.pushyActiveClass);
-        this.pushy.animate({left: "-" + this.menuWidth}, this.menuSpeed);
         this.pushy.removeClass(this.options.pushyClass);
-        this.container.animate({left: "0px"}, this.menuSpeed);
-        this.push.animate({left: "0px"}, this.menuSpeed); //css class to add pushy capability
+        if(this.options.onClose) {
+            this.options.onClose();
+        }
+        if(this.position == 'left') {
+            this.pushy.animate({left: "-" + this.menuWidth}, this.menuSpeed);
+            if(this.options.moveContainer) {
+                this.container.animate({left: "0px"}, this.menuSpeed); // move container
+            }
+        } else {
+            this.pushy.animate({right: "-" + this.menuWidth}, this.menuSpeed);
+            if(this.options.moveContainer) {
+                this.container.animate({right: "0px"}, this.menuSpeed); // move container
+            }
+        }
+        if(this.options.overlay) {
+            this.siteOverlay.fadeOut(100); // move overlay
+        }
     };
 
 
     
     $.fn[pluginName] = function ( options, arg1 ) {
-
         return this.each(function () {
-            if (!$.data(this, 'plugin_' + pluginName)) {
-                $.data(this, 'plugin_' + pluginName,
-                new Plugin( this, options ));
+            if (!$(this).data('plugin_' + pluginName)) {
+                $(this).data('plugin_' + pluginName, new Plugin( this, options ));
             }
         });
     };
 
     /* Auto initialize Pushy */
-    $('.pushy-auto').each(function() {
-        $(this).pushy();
+    $(document).ready(function() {
+        $('.pushy-auto').each(function() {
+            $(this).pushy();
+        });
     });
+    
     
     function log(msg) {
         if(console && console !== undefined) {
