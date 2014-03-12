@@ -2,7 +2,7 @@
 
 Pushy is a responsive off-canvas navigation menu using CSS transforms & transitions.
 
-This is a fork, modified by [@stephenhanson]((http://www.twitter.com/stephenhanson).
+This is a fork, modified by [@stephenhanson](http://www.twitter.com/stephenhanson).
 
 ##Features
 
@@ -22,7 +22,11 @@ This is a fork, modified by [@stephenhanson]((http://www.twitter.com/stephenhans
 
 1. Include jQuery & Modernizr.
 
-2. Add the stylesheet (pushy.css) in your head and the JS (pushy.min.js) file in your footer.
+2. Add the stylesheet (pushy.css) in your head and the JS (pushy.js) file in your footer.
+
+3. Configure in the DOM or via jQuery plugin syntax.
+
+Give an element classes `pushy pushy-auto` to automatically initialize without JavaScript. Furthur configuration available with `pushy-left`, `pushy-right` and `data-pushy-width`.
 
 **Configuration without Javascript**
 
@@ -87,7 +91,11 @@ This is a fork, modified by [@stephenhanson]((http://www.twitter.com/stephenhans
     $('#pushyLeft').pushy();
     $('#pushyRight').pushy({
         position: 'right',
-        width: '500px'
+        width: '500px',
+        moveContainer: false,
+        onOpen: function() {
+            // do stuff
+        }
     });
 
 </script>
@@ -101,18 +109,6 @@ Pushy uses Modernizr to detect & test for ```CSS Transforms``` support in the br
 
 ##Tips
 
-- Use the ```.push``` CSS class on HTML elements outside of the ```#container```.
-
-```html
-<header class="push">
-    <h1>This is a Heading</h1>
-    <h2>This is a subheading</h2>
-</header>
-
-<!-- Your Content -->
-<div id="container"></div>
-```
-
 - Add the following to hide horizontal scroll bars when menu is open, disable the webkit tap highlight and fix the focus scrolling in Safari.
 
 
@@ -124,26 +120,9 @@ html, body{
 }
 ```
 
-- If you change the width of the ```.pushy``` menu, be sure to update the values in the ```.pushy-left```and ```.container-push, .push-push``` CSS classes.
-
-```css
-
-.pushy{
-    width: 400px; /* Changed the width to 400px */
-}
-
-.pushy-left{
-    transform: translate3d(-400px,0,0); /* Updated the values */
-    /* Don't forget the vendor prefixes */
-}
-
-.container-push, .push-push{
-    transform: translate3d(400px,0,0); /* Updated the values */
-    /* Don't forget the vendor prefixes */
-}
-```
-
 ##Browser Compatibility
+
+**NOTE: Since the fork, I have only tested IE8+, Chrome, FF**
 
 | Desktop       | Mobile                                     |
 | ------------- | -------------------------------------------|
