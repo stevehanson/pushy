@@ -67,7 +67,15 @@
             } else { // right
                 translateX(this.pushy, this.menuWidth);
             }
-            this.pushy.show(); // is initially display:none so no blip before above js
+
+            // the pushy menu is display:none in the css. The above code is translating
+            // the menu off the screen, but takes time, since it is an animation. Wait
+            // until translation is done and then "unhide" the pushy so that it can just
+            // be translated on/off the screen to show/hide in the future
+            setTimeout(function() {
+                t.pushy.show(); // is initially display:none so no blip before above js    
+            }, 200);
+            
             
             //toggle menu
             t.toggleBtn.click(function() {
@@ -84,7 +92,6 @@
             
             if(t.position == 'left') {
                 pushy.css({left: "-" + t.menuWidth}); //hide menu by default  
-                pushy.show(); // is initially display:none so no blip before above js
             } else {
                 pushy.css({right: "-" + t.menuWidth}); //hide menu by default    
             }
