@@ -2,9 +2,7 @@
 
 Pushy is a responsive off-canvas navigation menu using CSS transforms & transitions.
 
-Feel free to [let me know](http://www.twitter.com/cmyee) if you use Pushy in one of your websites.
-
-[View Demo](http://www.christopheryee.ca/pushy) | [WordPress Theme](https://github.com/christophery/pushypress)
+This is a fork, modified by [@stephenhanson]((http://www.twitter.com/stephenhanson).
 
 ##Features
 
@@ -51,8 +49,8 @@ Feel free to [let me know](http://www.twitter.com/cmyee) if you use Pushy in one
 <!-- Your Content -->
 <div id="container">
     <!-- Menu Button -->
-    <div class="menu-btn" data-for="pushyLeft">&#9776; Menu</div>
-    <div class="menu-btn" data-for="pushyRight">&#9776; Right Menu</div>
+    <div class="menu-btn" data-pushy-for="pushyLeft">&#9776; Menu</div>
+    <div class="menu-btn" data-pushy-for="pushyRight">&#9776; Right Menu</div>
 </div>
 ```
 
@@ -81,8 +79,8 @@ Feel free to [let me know](http://www.twitter.com/cmyee) if you use Pushy in one
 <!-- Your Content -->
 <div id="container">
     <!-- Menu Button -->
-    <div class="menu-btn" data-for="pushyLeft">&#9776; Menu</div>
-    <div class="menu-btn" data-for="pushyRight">&#9776; Right Menu</div>
+    <div class="menu-btn" data-pushy-for="pushyLeft">&#9776; Menu</div>
+    <div class="menu-btn" data-pushy-for="pushyRight">&#9776; Right Menu</div>
 </div>
 
 <script>
@@ -98,7 +96,7 @@ Feel free to [let me know](http://www.twitter.com/cmyee) if you use Pushy in one
 
 ##Modernizr
 
-Pushy uses Modernizr to detect & test for ```CSS 3D Transforms``` support in the browser. Be sure to include this test in you are using the [Modernizr build tool](http://modernizr.com/download/#-csstransforms3d-shiv-cssclasses-teststyles-testprop-testallprops-prefixes-domprefixes-load).
+Pushy uses Modernizr to detect & test for ```CSS Transforms``` support in the browser. Be sure to include this test if you are using the [Modernizr build tool](http://modernizr.com/download/#-csstransforms3d-shiv-cssclasses-teststyles-testprop-testallprops-prefixes-domprefixes-load). TODO: could there be an easier way to check for transforms than using Modernizr?
 
 
 ##Tips
@@ -155,6 +153,14 @@ html, body{
 | Safari (Mac)  | Internet Explorer Mobile (Windows Phone 8) |
 
 ##Version History
+
+0.9.2 (FORKED)
+
+- Forked form main Pushy repo
+- Converted Pushy to jQuery plugin pattern (from module pattern)
+- Support for multiple Pushys on a page
+- Added configuration parameters for width, position, overlay movement
+- Added automatic initialization with class "pushy-auto"
 
 0.9.1
 

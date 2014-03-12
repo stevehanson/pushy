@@ -18,19 +18,31 @@ ul{
 	padding: 20px 40px;
 }
 
+#messageContainer {
+    text-align: center;
+}
+
 /* Menu Button */
 
+.menu-btn-group:after {
+	clear: both;
+}
+
 .menu-btn{
-	width: 100px;
+	float: left;
+	width: 115px;
 	padding: 10px;
-	margin-bottom: 30px;
+	margin: 0 20px 20px 0;
 	background: #000;
 	color: #FFF;
-	text-align: center;
 	cursor: pointer;
 }
 
 .menu-btn:hover{
 	background: #00b4ff;
 	color: #FFF;
+}
+
+.clearfix {
+	clear: both;
 }

@@ -67,11 +67,17 @@
 
         <!-- Your Content -->
         <div id="container">
-            <!-- Menu Button -->
-            <div class="menu-btn" data-pushy-for="pushyLeft">&#9776; Menu</div>
-            <div class="menu-btn" data-pushy-for="pushyRight">&#9776; Right Menu</div>
-            <div class="menu-btn" data-pushy-for="pushyRightWide">&#9776; Right Wide</div>
-            <div class="menu-btn" data-pushy-for="pushyLeft2">&#9776; Left 2</div>
+
+            <h1>Pushy Demo</h1>
+
+            <!-- Menu Buttons -->
+            <div class="menu-btn-group">
+                <div class="menu-btn" data-pushy-for="pushyLeft">&#9776; Menu</div>
+                <div class="menu-btn" data-pushy-for="pushyRight">&#9776; Right Menu</div>
+                <div class="menu-btn" data-pushy-for="pushyRightWide">&#9776; Right Wide</div>
+                <div class="menu-btn" data-pushy-for="pushyLeft2">&#9776; Left 2</div>
+                <div class="clearfix"></div>
+            </div>
 
             <h2 id="messageContainer"> </h2>
 
@@ -90,6 +96,7 @@
             $('#pushyLeft2').pushy({
                 position: 'left',
                 width: '323px',
+                moveContainer: false,
                 onOpen: function() {
                     $('#messageContainer').text('Pushy has open/close callbacks');
                 },
